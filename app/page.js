@@ -1,4 +1,6 @@
 import collection from "../collection.config.js";
+import entries from "../data/entries.js";
+import EntryCard from "../components/EntryCard.js";
 
 const styles = {
   wrap: {
@@ -24,23 +26,6 @@ const styles = {
     lineHeight: 1.6,
     margin: 0,
   },
-  card: {
-    marginTop: 48,
-    padding: 24,
-    backgroundColor: "#1C222C",
-    border: "1px solid #2E3644",
-    borderRadius: 10,
-  },
-  cardLabel: {
-    fontFamily: "'Courier New', monospace",
-    fontSize: 12,
-    color: "#97A1B3",
-    margin: 0,
-  },
-  cardValue: {
-    fontSize: 16,
-    margin: "6px 0 0",
-  },
   count: {
     fontFamily: "'Courier New', monospace",
     fontSize: 14,
@@ -63,16 +48,11 @@ export default function Home() {
       <h1 style={styles.title}>{collection.name}</h1>
       <p style={styles.description}>{collection.description}</p>
 
-      <div style={styles.card}>
-        <p style={styles.cardLabel}>CURATED BY</p>
-        <p style={styles.cardValue}>{collection.curator}</p>
-      </div>
-      <div style={styles.card}>
-        <p style={styles.cardLabel}>SOURCE</p>
-        <p style={styles.cardValue}>{collection.source}</p>
-      </div>
+      {entries.map((entry) => (
+        <EntryCard key={entry.title} entry={entry} />
+      ))}
 
-      <p style={styles.count}>entries in the archive: 0 (for now)</p>
+      <p style={styles.count}>entries in the archive: {entries.length}</p>
 
       <footer style={styles.footer}>
         Built in ICT 340 — Vibe Coding, American University of Phnom Penh, Fall
