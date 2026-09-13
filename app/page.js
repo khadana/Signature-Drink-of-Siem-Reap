@@ -75,8 +75,10 @@ export default function Home() {
   const [query, setQuery] = useState("");
 
   const q = query.trim().toLowerCase();
-  const matched = entries.filter((entry) =>
-    entry.title.toLowerCase().includes(q)
+  const matched = entries.filter(
+    (entry) =>
+      entry.title.toLowerCase().includes(q) ||
+      (entry.titleKhmer || "").toLowerCase().includes(q)
   );
 
   return (

@@ -18,6 +18,12 @@ const styles = {
     color: "#97A1B3",
     margin: "10px 0 0",
   },
+  titleKhmer: {
+    fontSize: 16,
+    lineHeight: 1.4,
+    color: "#97A1B3",
+    margin: "6px 0 0",
+  },
   metaRow: {
     marginTop: 16,
     paddingTop: 16,
@@ -47,6 +53,7 @@ export default function EntryCard({ entry }) {
   return (
     <article style={styles.card}>
       <h2 style={styles.title}>{entry.title}</h2>
+      {entry.titleKhmer && <p style={styles.titleKhmer}>{entry.titleKhmer}</p>}
       <p style={styles.description}>{entry.description}</p>
       <div style={styles.metaRow}>
         <div>
