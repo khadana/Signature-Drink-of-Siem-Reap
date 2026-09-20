@@ -1,15 +1,45 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import collection from "../collection.config.js";
 import entries from "../data/entries.js";
 import EntryCard from "../components/EntryCard.js";
+import { createClient } from "../lib/supabase/client.js";
 
 const styles = {
   wrap: {
     maxWidth: 720,
     margin: "0 auto",
     padding: "80px 24px",
+  },
+  authBar: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "flex-end",
+    gap: 12,
+    marginBottom: 28,
+  },
+  authEmail: {
+    fontSize: 14,
+    color: "#97A1B3",
+  },
+  authLink: {
+    fontSize: 14,
+    color: "#D4A24C",
+    textDecoration: "underline",
+  },
+  authSeparator: {
+    fontSize: 14,
+    color: "#5A6373",
+  },
+  authButton: {
+    fontSize: 14,
+    color: "#D4A24C",
+    backgroundColor: "#1C222C",
+    border: "1px solid #2E3644",
+    borderRadius: 8,
+    padding: "6px 14px",
+    cursor: "pointer",
   },
   kicker: {
     fontFamily: "'Courier New', monospace",
@@ -73,6 +103,28 @@ const styles = {
 
 export default function Home() {
   const [query, setQuery] = useState("");
+  const [user, setUser] = useState(undefined); // undefined = checking, null = signed out, object = signed in
+  const supabase = createClient();
+
+  useEffect(() => {
+    let active = true;
+    supabase.auth
+      .getUser()
+      .then(({ data }) => {
+        if (active) setUser(data.user ?? null);
+      })
+      .catch(() => {
+        if (active) setUser(null);
+      });
+    return () => {
+      active = false;
+    };
+  }, [supabase]);
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    setUser(null);
+  };
 
   const q = query.trim().toLowerCase();
   const matched = entries.filter(
@@ -83,6 +135,26 @@ export default function Home() {
 
   return (
     <main style={styles.wrap}>
+      <header style={styles.authBar}>
+        {user === undefined ? null : user ? (
+          <>
+            <span style={styles.authEmail}>{user.email}</span>
+            <button type="button" style={styles.authButton} onClick={handleLogout}>
+              Logout
+            </button>
+          </>
+        ) : (
+          <>
+            <a href="/login" style={styles.authLink}>
+              Sign in
+            </a>
+            <span style={styles.authSeparator}>/</span>
+            <a href="/signup" style={styles.authLink}>
+              Sign up
+            </a>
+          </>
+        )}
+      </header>
       <p style={styles.kicker}>KHMER LIVING ARCHIVE</p>
       <h1 style={styles.title}>{collection.name}</h1>
       <p style={styles.description}>{collection.description}</p>
