@@ -51,7 +51,7 @@ const styles = {
 
 export default function EntryCard({ entry }) {
   return (
-    <article style={styles.card}>
+    <article className="entry-card" style={styles.card}>
       <h2 style={styles.title}>{entry.title}</h2>
       {entry.titleKhmer && <p style={styles.titleKhmer}>{entry.titleKhmer}</p>}
       <p style={styles.description}>{entry.description}</p>

@@ -1,0 +1,17 @@
+/* Smooth transitions */
+.search-input,
+.entry-card {
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+/* Search input — amber focus border + soft glow */
+.search-input:focus {
+  border-color: #d4a24c !important;
+  box-shadow: 0 0 0 3px rgba(212, 162, 76, 0.18);
+}
+
+/* Entry card — subtle hover lift + faint amber ring */
+.entry-card:hover {
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(212, 162, 76, 0.5);
+  transform: translateY(-2px);
+}

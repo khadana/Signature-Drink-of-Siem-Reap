@@ -13,7 +13,7 @@ const styles = {
   },
   kicker: {
     fontFamily: "'Courier New', monospace",
-    color: "#2EE6A8",
+    color: "#D4A24C",
     fontSize: 14,
     letterSpacing: 1,
   },
@@ -59,7 +59,7 @@ const styles = {
   count: {
     fontFamily: "'Courier New', monospace",
     fontSize: 14,
-    color: "#2EE6A8",
+    color: "#D4A24C",
     marginTop: 48,
   },
   footer: {
@@ -90,6 +90,7 @@ export default function Home() {
       <p style={styles.searchLabel}>SEARCH</p>
       <input
         type="search"
+        className="search-input"
         style={styles.search}
         value={query}
         onChange={(e) => setQuery(e.target.value)}
