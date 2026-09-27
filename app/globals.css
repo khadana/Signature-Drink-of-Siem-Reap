@@ -1,17 +1,58 @@
+/* ============================================================
+   Theme: palm sugar & leaf (light)
+   Change the whole site's colors here, in one place.
+   ============================================================ */
+:root {
+  --bg: #fbf5ea;          /* cream, like palm sugar syrup in daylight */
+  --surface: #ffffff;     /* cards */
+  --input: #fffdf8;       /* form fields */
+  --text: #3a2716;        /* deep palm-sugar brown */
+  --muted: #7a6552;
+  --faint: #a89582;
+  --border: #e8dcc8;
+  --accent: #2f6b3f;      /* sugar palm leaf green */
+  --accent-2: #c47a1e;    /* caramel amber */
+  --on-accent: #ffffff;
+  --error: #b3261e;
+}
+
+html { scroll-behavior: smooth; }
+
 /* Smooth transitions */
 .search-input,
-.entry-card {
-  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+.entry-card,
+.btn,
+.use-card {
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease,
+    background-color 0.2s ease;
 }
 
-/* Search input — amber focus border + soft glow */
 .search-input:focus {
-  border-color: #d4a24c !important;
-  box-shadow: 0 0 0 3px rgba(212, 162, 76, 0.18);
+  border-color: var(--accent) !important;
+  box-shadow: 0 0 0 3px rgba(47, 107, 63, 0.15);
 }
 
-/* Entry card — subtle hover lift + faint amber ring */
-.entry-card:hover {
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(212, 162, 76, 0.5);
-  transform: translateY(-2px);
+.entry-card:hover,
+.use-card:hover {
+  box-shadow: 0 10px 24px rgba(58, 39, 22, 0.1);
+  transform: translateY(-3px);
+}
+
+.btn:hover { transform: translateY(-1px); box-shadow: 0 6px 14px rgba(58, 39, 22, 0.15); }
+
+/* Hero: two columns on wide screens, stacked on phones */
+.hero {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 40px;
+  align-items: center;
+}
+.uses-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+@media (max-width: 820px) {
+  .hero { grid-template-columns: 1fr; }
+  .uses-grid { grid-template-columns: repeat(2, 1fr); }
 }

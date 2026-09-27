@@ -1,33 +1,19 @@
 const styles = {
   card: {
-    marginTop: 24,
+    marginTop: 20,
     padding: 24,
-    backgroundColor: "#1C222C",
-    border: "1px solid #2E3644",
-    borderRadius: 10,
+    backgroundColor: "var(--surface)",
+    border: "1px solid var(--border)",
+    borderLeft: "5px solid var(--accent-2)",
+    borderRadius: 14,
   },
-  title: {
-    fontSize: 20,
-    fontWeight: 700,
-    margin: 0,
-    lineHeight: 1.3,
-  },
-  description: {
-    fontSize: 15,
-    lineHeight: 1.6,
-    color: "#97A1B3",
-    margin: "10px 0 0",
-  },
-  titleKhmer: {
-    fontSize: 16,
-    lineHeight: 1.4,
-    color: "#97A1B3",
-    margin: "6px 0 0",
-  },
+  title: { fontSize: 20, fontWeight: 700, margin: 0, lineHeight: 1.3 },
+  titleKhmer: { fontSize: 17, lineHeight: 1.5, color: "var(--accent)", margin: "6px 0 0" },
+  description: { fontSize: 15, lineHeight: 1.6, color: "var(--muted)", margin: "10px 0 0" },
   metaRow: {
     marginTop: 16,
     paddingTop: 16,
-    borderTop: "1px solid #2E3644",
+    borderTop: "1px dashed var(--border)",
     display: "flex",
     justifyContent: "space-between",
     gap: 16,
@@ -37,16 +23,21 @@ const styles = {
     fontFamily: "'Courier New', monospace",
     fontSize: 12,
     letterSpacing: 1,
-    color: "#97A1B3",
+    color: "var(--faint)",
     margin: 0,
   },
-  value: {
-    fontSize: 14,
+  value: { fontSize: 14, margin: "6px 0 0" },
+  place: {
+    display: "inline-block",
+    fontSize: 13,
+    fontWeight: 600,
     margin: "6px 0 0",
+    padding: "4px 10px",
+    borderRadius: 999,
+    color: "var(--accent)",
+    backgroundColor: "rgba(47, 107, 63, 0.1)",
   },
-  metaBlockRight: {
-    textAlign: "right",
-  },
+  metaBlockRight: { textAlign: "right" },
 };
 
 export default function EntryCard({ entry }) {
@@ -62,7 +53,7 @@ export default function EntryCard({ entry }) {
         </div>
         <div style={styles.metaBlockRight}>
           <p style={styles.label}>PLACE</p>
-          <p style={styles.value}>{entry.place}</p>
+          <p style={styles.place}>📍 {entry.place}</p>
         </div>
       </div>
     </article>
