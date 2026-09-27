@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import collection from "../collection.config.js";
-import entries from "../data/entries.js";
 import EntryCard from "../components/EntryCard.js";
 import { createClient } from "../lib/supabase/client.js";
 
@@ -104,7 +103,30 @@ const styles = {
 export default function Home() {
   const [query, setQuery] = useState("");
   const [user, setUser] = useState(undefined); // undefined = checking, null = signed out, object = signed in
-  const supabase = createClient();
+  const [entries, setEntries] = useState([]);
+  const [status, setStatus] = useState("loading"); // "loading" | "ready" | "error"
+  const [supabase] = useState(() => createClient());
+
+  useEffect(() => {
+    let active = true;
+    supabase
+      .from("entries")
+      // title_khmer is renamed to titleKhmer so EntryCard needs no changes
+      .select("id, created_at, title, titleKhmer:title_khmer, description, contributor, place")
+      .order("created_at", { ascending: false })
+      .then(({ data, error }) => {
+        if (!active) return;
+        if (error) {
+          setStatus("error");
+        } else {
+          setEntries(data ?? []);
+          setStatus("ready");
+        }
+      });
+    return () => {
+      active = false;
+    };
+  }, [supabase]);
 
   useEffect(() => {
     let active = true;
@@ -169,10 +191,16 @@ export default function Home() {
         placeholder="Search by title…"
       />
 
-      {matched.length > 0 ? (
-        matched.map((entry) => (
-          <EntryCard key={entry.title} entry={entry} />
-        ))
+      {status === "loading" ? (
+        <p style={styles.empty}>Loading entries…</p>
+      ) : status === "error" ? (
+        <p style={styles.empty}>
+          The archive could not be reached right now. Please refresh in a moment.
+        </p>
+      ) : entries.length === 0 ? (
+        <p style={styles.empty}>The archive has no entries yet.</p>
+      ) : matched.length > 0 ? (
+        matched.map((entry) => <EntryCard key={entry.id} entry={entry} />)
       ) : (
         <p style={styles.empty}>
           No entries match "{query.trim()}". Try another keyword.
