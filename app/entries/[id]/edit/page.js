@@ -34,6 +34,7 @@ export default function EditEntryPage() {
   };
 
   const save = async (clean, file) => {
+    if (!navigator.onLine) return "You're offline. Check your internet connection, then try again.";
     const { data: auth } = await supabase.auth.getUser();
     if (!auth.user) return "Your session has ended. Please sign in again.";
 

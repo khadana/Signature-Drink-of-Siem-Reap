@@ -8,7 +8,7 @@ export default function PhotoInput({ file, currentUrl, required, error, onChange
   const [preview, setPreview] = useState(null);
 
   useEffect(() => {
-    if (!file) return setPreview(null);
+    if (!file || !["image/jpeg", "image/png", "image/webp"].includes(file.type)) return setPreview(null);
     const url = URL.createObjectURL(file);
     setPreview(url);
     return () => URL.revokeObjectURL(url);

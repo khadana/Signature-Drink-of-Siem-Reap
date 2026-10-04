@@ -25,6 +25,7 @@ export default function ContributePage() {
   // Called by EntryForm after every rule has passed.
   const save = async (clean, file) => {
     // Owner comes from the session, never from the form.
+    if (!navigator.onLine) return "You're offline. Check your internet connection, then try again.";
     const { data: auth } = await supabase.auth.getUser();
     if (!auth.user) return "Your session has ended. Please sign in again.";
 

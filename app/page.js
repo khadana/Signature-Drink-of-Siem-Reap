@@ -124,7 +124,7 @@ export default function Home() {
 
       <section id="archive" style={styles.archive}>
         <p style={styles.sectionKicker}>THE ARCHIVE</p>
-        <h2 style={styles.sectionTitle}>Every drink, every name</h2>
+        <h2 style={styles.sectionTitle}>Every form of teuk tnaot</h2>
         <input
           type="search"
           className="search-input"
