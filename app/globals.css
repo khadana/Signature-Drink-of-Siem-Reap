@@ -56,3 +56,8 @@ html { scroll-behavior: smooth; }
   .hero { grid-template-columns: 1fr; }
   .uses-grid { grid-template-columns: repeat(2, 1fr); }
 }
+
+/* Phones: hide the email in the nav so Contribute and Logout fit */
+@media (max-width: 600px) {
+  .nav-email { display: none; }
+}

@@ -67,7 +67,7 @@ export default function Home() {
     supabase
       .from("entries")
       // title_khmer is renamed to titleKhmer so EntryCard needs no changes
-      .select("id, created_at, title, titleKhmer:title_khmer, description, contributor, place")
+      .select("id, created_at, title, titleKhmer:title_khmer, description, contributor, place, photo_url")
       .order("created_at", { ascending: false })
       .then(({ data, error }) => {
         if (!active) return;

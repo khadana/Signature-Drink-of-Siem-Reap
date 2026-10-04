@@ -41,7 +41,10 @@ export default function NavBar({ user, onLogout }) {
       <div style={styles.right}>
         {user === undefined ? null : user ? (
           <>
-            <span style={styles.email}>{user.email}</span>
+            <a href="/contribute" style={styles.link}>
+              ＋ Contribute
+            </a>
+            <span className="nav-email" style={styles.email}>{user.email}</span>
             <button type="button" className="btn" style={styles.button} onClick={onLogout}>
               Logout
             </button>

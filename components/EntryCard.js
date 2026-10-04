@@ -6,7 +6,10 @@ const styles = {
     border: "1px solid var(--border)",
     borderLeft: "5px solid var(--accent-2)",
     borderRadius: 14,
+    overflow: "hidden",
   },
+  photo: { display: "block", width: "calc(100% + 48px)", margin: "-24px -24px 20px", aspectRatio: "16 / 9", objectFit: "cover" },
+  titleLink: { color: "inherit", textDecoration: "none" },
   title: { fontSize: 20, fontWeight: 700, margin: 0, lineHeight: 1.3 },
   titleKhmer: { fontSize: 17, lineHeight: 1.5, color: "var(--accent)", margin: "6px 0 0" },
   description: { fontSize: 15, lineHeight: 1.6, color: "var(--muted)", margin: "10px 0 0" },
@@ -36,14 +39,19 @@ const styles = {
     borderRadius: 999,
     color: "var(--accent)",
     backgroundColor: "rgba(47, 107, 63, 0.1)",
+    whiteSpace: "nowrap",
   },
   metaBlockRight: { textAlign: "right" },
 };
 
-export default function EntryCard({ entry }) {
+// large = shown on the entry's own page (no link back to itself).
+export default function EntryCard({ entry, large }) {
   return (
     <article className="entry-card" style={styles.card}>
-      <h2 style={styles.title}>{entry.title}</h2>
+      {entry.photo_url && <img src={entry.photo_url} alt={entry.title} style={styles.photo} />}
+      <h2 style={{ ...styles.title, ...(large ? { fontSize: 28 } : null) }}>
+        {large ? entry.title : <a href={`/entries/${entry.id}`} style={styles.titleLink}>{entry.title}</a>}
+      </h2>
       {entry.titleKhmer && <p style={styles.titleKhmer}>{entry.titleKhmer}</p>}
       <p style={styles.description}>{entry.description}</p>
       <div style={styles.metaRow}>
@@ -53,7 +61,7 @@ export default function EntryCard({ entry }) {
         </div>
         <div style={styles.metaBlockRight}>
           <p style={styles.label}>PLACE</p>
-          <p style={styles.place}>📍 {entry.place}</p>
+          <p style={styles.place}>📍&nbsp;{entry.place}</p>
         </div>
       </div>
     </article>
