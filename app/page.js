@@ -110,8 +110,8 @@ export default function Home() {
       (entry.titleKhmer || "").toLowerCase().includes(q)
   );
 
-  // Logged-out visitors see only the first half of the archive.
-  const signedIn = Boolean(user);
+  // Everyone can browse the whole archive. It's public, like Sprint 1.
+  const signedIn = true; // everyone can browse the whole public archive
   const previewIds = new Set(entries.slice(0, Math.ceil(entries.length / 2)).map((e) => e.id));
   const visible = signedIn ? matched : matched.filter((e) => previewIds.has(e.id));
   const hiddenCount = signedIn ? 0 : entries.length - previewIds.size;
