@@ -1,17 +1,17 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import NavBar from "../../components/NavBar.js";
 import EntryForm from "../../components/EntryForm.js";
+import SubmittedNote from "../../components/SubmittedNote.js";
 import { createClient } from "../../lib/supabase/client.js";
 import { uploadPhoto } from "../../lib/uploadPhoto.js";
 import { formStyles as s } from "../../lib/formStyles.js";
 
 export default function ContributePage() {
-  const router = useRouter();
   const [supabase] = useState(() => createClient());
   const [user, setUser] = useState(undefined); // undefined = checking
+  const [submitted, setSubmitted] = useState(false);
 
   useEffect(() => {
     supabase.auth.getUser().then(({ data }) => setUser(data.user ?? null));
@@ -47,6 +47,7 @@ export default function ContributePage() {
         place: clean.place,
         photo_url: photo.url,
         owner: auth.user.id,
+        // No status here on purpose: the database default makes every new entry 'pending'.
       })
       .select("id")
       .single();
@@ -56,7 +57,7 @@ export default function ContributePage() {
       await supabase.storage.from("photos").remove([photo.path]); // don't leave an orphan photo
       return "Your entry couldn't be saved. Please check each field and try again.";
     }
-    router.push(`/entries/${data.id}`);
+    setSubmitted(true); // the entry waits for review, so there's nothing public to open yet
     return null;
   };
 
@@ -72,6 +73,8 @@ export default function ContributePage() {
           You need an account to contribute. <a href="/login" style={s.link}>Sign in</a> or{" "}
           <a href="/signup" style={s.link}>sign up</a>.
         </p>
+      ) : submitted ? (
+        <SubmittedNote onAnother={() => setSubmitted(false)} />
       ) : (
         <EntryForm photoRequired submitLabel="Add to the archive" onSave={save} />
       )}

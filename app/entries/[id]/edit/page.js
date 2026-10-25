@@ -49,16 +49,21 @@ export default function EditEntryPage() {
       }
     }
 
+    // An edit goes back to review, unless the editor is a reviewer (the database enforces this too).
+    const { data: reviewer } = await supabase.rpc("is_reviewer");
+    const changes = {
+      title: clean.title,
+      title_khmer: clean.title_khmer,
+      description: clean.description,
+      contributor: clean.contributor,
+      place: clean.place,
+      photo_url: photo ? photo.url : entry.photo_url,
+    };
+    if (reviewer !== true) changes.status = "pending";
+
     const { data, error } = await supabase
       .from("entries")
-      .update({
-        title: clean.title,
-        title_khmer: clean.title_khmer,
-        description: clean.description,
-        contributor: clean.contributor,
-        place: clean.place,
-        photo_url: photo ? photo.url : entry.photo_url,
-      })
+      .update(changes)
       .eq("id", id)
       .select("id");
 

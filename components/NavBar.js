@@ -44,6 +44,9 @@ export default function NavBar({ user, onLogout }) {
             <a href="/contribute" style={styles.link}>
               ＋ Contribute
             </a>
+            <a href="/my-entries" style={styles.link}>
+              My entries
+            </a>
             <span className="nav-email" style={styles.email}>{user.email}</span>
             <button type="button" className="btn" style={styles.button} onClick={onLogout}>
               Logout

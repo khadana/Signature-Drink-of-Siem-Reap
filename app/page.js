@@ -68,6 +68,9 @@ export default function Home() {
       .from("entries")
       // title_khmer is renamed to titleKhmer so EntryCard needs no changes
       .select("id, created_at, title, titleKhmer:title_khmer, description, contributor, place, photo_url")
+      // Only published entries belong on the public shelf. Row-level security already
+      // hides other people's pending entries; this also hides your own while you're logged in.
+      .eq("status", "published")
       .order("created_at", { ascending: false })
       .then(({ data, error }) => {
         if (!active) return;
