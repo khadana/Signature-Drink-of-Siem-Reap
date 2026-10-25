@@ -1,11 +1,15 @@
 import Photo from "./Photo.js";
+import Glass from "./wc/Glass.js";
+import SugarCakes from "./wc/SugarCakes.js";
+import ClayJar from "./wc/ClayJar.js";
+import PalmTree from "./wc/PalmTree.js";
 
-// Each card shows /public/images/<file> if it exists, otherwise the emoji.
+// Each card shows /public/images/<file> if it exists, otherwise a watercolor drawing.
 const uses = [
-  { file: "drink.jpg", icon: "🥤", en: "A drink", km: "ភេសជ្ជៈ", text: "Fresh sap, chilled, sold by the roadside." },
-  { file: "sugar.jpg", icon: "🍯", en: "A sugar", km: "ស្ករត្នោត", text: "Boiled down into golden palm sugar." },
-  { file: "ferment.jpg", icon: "🏺", en: "A ferment", km: "ស្រា និង ខ្មេះ", text: "Left to turn into wine and vinegar." },
-  { file: "tradition.jpg", icon: "🌾", en: "A tradition", km: "ប្រពៃណី", text: "Climbed for, tapped, and passed down." },
+  { file: "drink.jpg", Art: Glass, en: "A drink", km: "ភេសជ្ជៈ", text: "Fresh sap, chilled, sold by the roadside." },
+  { file: "sugar.jpg", Art: SugarCakes, en: "A sugar", km: "ស្ករត្នោត", text: "Boiled down into golden palm sugar." },
+  { file: "ferment.jpg", Art: ClayJar, en: "A ferment", km: "ស្រា និង ខ្មេះ", text: "Left to turn into wine and vinegar." },
+  { file: "tradition.jpg", Art: PalmTree, en: "A tradition", km: "ប្រពៃណី", text: "Climbed for, tapped, and passed down." },
 ];
 
 const styles = {
@@ -17,7 +21,7 @@ const styles = {
     overflow: "hidden",
   },
   photo: { width: "100%", aspectRatio: "4 / 3", objectFit: "cover", display: "block" },
-  icon: { fontSize: 30, margin: "20px 20px 0" },
+  art: { padding: "16px 16px 0", lineHeight: 0 },
   body: { padding: "0 20px 20px" },
   en: { fontSize: 17, fontWeight: 700, margin: "12px 0 2px" },
   km: { fontSize: 14, color: "var(--accent)", margin: 0 },
@@ -33,7 +37,7 @@ export default function UsesStrip() {
             src={`/images/${use.file}`}
             alt={use.en}
             style={styles.photo}
-            fallback={<p style={styles.icon} aria-hidden="true">{use.icon}</p>}
+            fallback={<div style={styles.art}><use.Art size={120} /></div>}
           />
           <div style={styles.body}>
             <p style={styles.en}>{use.en}</p>
