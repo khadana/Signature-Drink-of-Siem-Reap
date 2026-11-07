@@ -1,3 +1,5 @@
+import ReviewLink from "./ReviewLink.js";
+
 const styles = {
   bar: {
     display: "flex",
@@ -47,6 +49,7 @@ export default function NavBar({ user, onLogout }) {
             <a href="/my-entries" style={styles.link}>
               My entries
             </a>
+            <ReviewLink style={styles.link} />
             <span className="nav-email" style={styles.email}>{user.email}</span>
             <button type="button" className="btn" style={styles.button} onClick={onLogout}>
               Logout
