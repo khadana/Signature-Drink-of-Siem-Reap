@@ -4,6 +4,9 @@ import Photo from "./Photo.js";
 const styles = {
   card: {
     width: "100%",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "flex-start",
     fontFamily: "inherit",
     color: "inherit",
     textAlign: "left",
