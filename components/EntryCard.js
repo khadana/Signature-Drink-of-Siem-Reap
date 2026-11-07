@@ -13,6 +13,7 @@ const styles = {
   title: { fontSize: 20, fontWeight: 700, margin: 0, lineHeight: 1.3 },
   titleKhmer: { fontSize: 17, lineHeight: 1.5, color: "var(--accent)", margin: "6px 0 0" },
   description: { fontSize: 15, lineHeight: 1.6, color: "var(--muted)", margin: "10px 0 0" },
+  seeMore: { display: "inline-block", marginTop: 8, color: "var(--accent)", fontWeight: 600, textDecoration: "none" },
   metaRow: {
     marginTop: 16,
     paddingTop: 16,
@@ -54,6 +55,7 @@ export default function EntryCard({ entry, large }) {
       </h2>
       {entry.titleKhmer && <p style={styles.titleKhmer}>{entry.titleKhmer}</p>}
       <p style={styles.description}>{entry.description}</p>
+      {!large && <a href={`/entries/${entry.id}`} style={styles.seeMore}>See more · មើលបន្ថែម →</a>}
       <div style={styles.metaRow}>
         <div>
           <p style={styles.label}>CONTRIBUTED BY</p>
