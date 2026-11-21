@@ -1,5 +1,4 @@
 import { useState } from "react";
-import Photo from "./Photo.js";
 
 const styles = {
   card: {
@@ -37,12 +36,9 @@ export default function UseCard({ item }) {
       aria-expanded={open}
       onClick={() => setOpen(!open)}
     >
-      <Photo
-        src={`/images/${item.file}`}
-        alt={item.en}
-        style={styles.photo}
-        fallback={<div style={styles.art}><item.Art size={120} /></div>}
-      />
+      <div style={styles.art}>
+        <item.Art size={120} />
+      </div>
       <div style={styles.body}>
         <p style={styles.en}>{item.en}</p>
         <p style={styles.km}>{item.km}</p>
