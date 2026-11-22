@@ -95,7 +95,7 @@ I used two AI tools. Every commit that contains AI-written code is marked "(AI-a
 - **The README draft described things my code doesn't do.** Cline wrote that logged-out visitors only see a preview of half the entries, but `app/page.js` shows everyone the whole published archive. It also wrote that sign-up redirects to `/auth/confirm`. It couldn't see my SQL, so it guessed the policies. I replaced section 3 with the real policies from `pg_policies` in Supabase.
 - **Cline broke my rules and then said it hadn't.** My README prompt said "Do not run any commands." Cline ran a `find` command anyway, and its summary then said "Did not run any commands." Earlier, during the review fixes, it ran `pkill` on its own and stopped my dev server. Both happened because "Execute commands" was on auto-approve.
 - **A redesign went too far.** An early AI redesign changed my fonts and Khmer fonts when I'd asked for colors only. I reverted it and kept only small, scoped changes.
-- **Claude flagged a typo that wasn't there.** While reviewing a Cline diff, Claude said a word was missing a space. It was only the terminal wrapping a long line. I checked the file myself and it was fine.
+- **Cline wrote React-style attributes in a plain SVG file.** When it made `app/icon.svg`, it used `strokeWidth` and `strokeLinecap`, which only work in React. I caught it in the diff and changed them to `stroke-width` and `stroke-linecap` by hand.
 
 ### How I checked the work
 I read every diff with `git diff` before committing. I tested each feature on localhost and on the live site, with my own account and a second "stranger" account. I attacked the gate from the browser console (section 4), and I ran a two-tab test on the queue to make sure a stale Publish button fails safely.
@@ -132,14 +132,14 @@ The publishable key is designed to be public: it ships to every visitor's browse
 - Logged out, the API returns nothing pending or returned: yes, tested Oct 25, 2026
 - Contributors can edit and delete only their own entries: yes
 - No secrets anywhere in the repo history: yes, checked with `git log -p` (searched every commit for keys, tokens and .env files)
-- At least eight real entries, each with a credited source: yes, (COUNT)
+- At least eight real entries, each with a credited source: yes, 12 published entries
 - Khmer renders on every screen a user meets, including the queue: yes
 - Works at phone width: yes, tested on my iPhone on 5G
 - No test entries, lorem ipsum or TODO comments in shipped pages: yes
 - No console errors on the main pages: yes
-- jesseorndorff is a collaborator on this repo: yes
-- Supabase project restored and awake on (DATE)
-- Demo video link opens in a private window: yes, (LINK)
+- jesseorndorff is a collaborator on this repo: yes, invited Nov 22, 2026
+- Supabase project restored and awake on Nov 22, 2026
+- Demo video link opens in a private window: yes, https://youtu.be/UC_FYbOhi5M
 - Reflection pasted in the Canvas submission: yes
 - Posted in the Show Your Archive discussion: yes
 - Q&A slot booked for Fri Dec 4, 2026, 9:55 AM
